@@ -330,6 +330,7 @@ void main() {
 
     test('renders properly', () {
       final template = ObservableFutureTemplate(
+        storeTemplate: (MixinStoreTemplate()..parentTypeName = 'ParentClass'),
         method: method,
         hasProtected: false,
         hasVisibleForOverriding: false,
@@ -346,6 +347,7 @@ void main() {
 
     test('generates template with "@protected" annotation', () {
       final template = ObservableFutureTemplate(
+        storeTemplate: (MixinStoreTemplate()..parentTypeName = 'ParentClass'),
         method: method,
         hasProtected: true,
         hasVisibleForOverriding: false,
@@ -356,6 +358,7 @@ void main() {
     });
     test('generates template with "@visibleForOverriding" annotation', () {
       final template = ObservableFutureTemplate(
+        storeTemplate: (MixinStoreTemplate()..parentTypeName = 'ParentClass'),
         method: method,
         hasProtected: false,
         hasVisibleForOverriding: true,
@@ -366,6 +369,7 @@ void main() {
     });
     test('generates template with "@visibleForTesting" annotation', () {
       final template = ObservableFutureTemplate(
+        storeTemplate: (MixinStoreTemplate()..parentTypeName = 'ParentClass'),
         method: method,
         hasProtected: false,
         hasVisibleForOverriding: false,

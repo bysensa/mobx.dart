@@ -29,7 +29,10 @@ class ClassElementMock extends Fake implements ClassElement {
   List<TypeParameterElement> get typeParameters => [];
 }
 
-class StoreTemplateFake extends StoreTemplate {}
+class StoreTemplateFake extends StoreTemplate {
+  @override
+  String get contextName => 'context';
+}
 
 class StoreClassVisitorFake extends Fake implements StoreClassVisitor {}
 

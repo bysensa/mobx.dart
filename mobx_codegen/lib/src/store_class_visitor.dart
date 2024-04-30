@@ -208,6 +208,7 @@ class StoreClassVisitor extends SimpleElementVisitor {
 
       if (_asyncChecker.returnsFuture(element)) {
         final template = ObservableFutureTemplate(
+          storeTemplate: _storeTemplate,
           method: MethodOverrideTemplate.fromElement(element, typeNameFinder),
           hasProtected: element.hasProtected,
           hasVisibleForOverriding: element.hasVisibleForOverriding,
@@ -217,6 +218,7 @@ class StoreClassVisitor extends SimpleElementVisitor {
         _storeTemplate.observableFutures.add(template);
       } else if (_asyncChecker.returnsStream(element)) {
         final template = ObservableStreamTemplate(
+          storeTemplate: _storeTemplate,
           method: MethodOverrideTemplate.fromElement(element, typeNameFinder),
           hasProtected: element.hasProtected,
           hasVisibleForOverriding: element.hasVisibleForOverriding,
@@ -264,10 +266,14 @@ class StoreClassVisitor extends SimpleElementVisitor {
 }
 
 const _storeMixinChecker = TypeChecker.fromRuntime(Store);
+const _stateStoreMixinChecker = TypeChecker.fromRuntime(StateStore);
 const _toStringAnnotationChecker = TypeChecker.fromRuntime(StoreConfig);
 
 bool isMixinStoreClass(ClassElement classElement) =>
     classElement.mixins.any(_storeMixinChecker.isExactlyType);
+
+bool isStateStoreClass(ClassElement classElement) =>
+    classElement.mixins.any(_stateStoreMixinChecker.isExactlyType);
 
 // Checks if the class as a toString annotation
 bool isStoreConfigAnnotatedStoreClass(ClassElement classElement) =>

@@ -12,8 +12,27 @@ class MixinStoreTemplate extends StoreTemplate {
   String get typeName => '_\$$publicTypeName';
 
   @override
+  String get contextName => 'context';
+
+  @override
   String toString() => '''
   mixin $typeName$typeParams on $parentTypeName$typeArgs, Store {
+    $storeBody
+  }''';
+}
+
+class StateStoreTemplate extends StoreTemplate {
+  String get typeName => '${publicTypeName}Store';
+
+  @override
+  String get contextName => 'reactiveContext';
+
+  @override
+  bool get generateToString => false;
+
+  @override
+  String toString() => '''
+  abstract class $typeName$typeParams extends $parentTypeName$typeArgs with StateStore {
     $storeBody
   }''';
 }
@@ -35,6 +54,7 @@ abstract class StoreTemplate {
   final Rows<ObservableStreamTemplate> observableStreams = Rows();
   final List<String> toStringList = [];
 
+  String get contextName;
   bool generateToString = false;
   String? _actionControllerName;
   String get actionControllerName =>
@@ -42,7 +62,7 @@ abstract class StoreTemplate {
 
   String get actionControllerField => actions.isEmpty
       ? ''
-      : "late final $actionControllerName = ActionController(name: '$parentTypeName', context: context);";
+      : "late final $actionControllerName = ActionController(name: '$parentTypeName', context: $contextName);";
 
   String get toStringMethod {
     if (!generateToString) {

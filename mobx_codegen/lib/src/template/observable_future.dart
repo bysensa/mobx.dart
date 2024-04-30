@@ -1,9 +1,12 @@
 import 'package:mobx_codegen/src/template/annotations_generator_mixin.dart';
 import 'package:mobx_codegen/src/template/method_override.dart';
 
+import 'store.dart';
+
 class ObservableFutureTemplate with AnnotationsGenerator {
   ObservableFutureTemplate({
     required this.method,
+    required this.storeTemplate,
     required bool hasProtected,
     required bool hasVisibleForOverriding,
     required bool hasVisibleForTesting,
@@ -14,12 +17,13 @@ class ObservableFutureTemplate with AnnotationsGenerator {
   }
 
   final MethodOverrideTemplate method;
+  final StoreTemplate storeTemplate;
 
   @override
   String toString() => """
   $annotations
   ObservableFuture${method.returnTypeArgs} ${method.name}${method.typeParams}(${method.params}) {
     final _\$future = super.${method.name}${method.typeArgs}(${method.args});
-    return ObservableFuture${method.returnTypeArgs}(_\$future, context: context);
+    return ObservableFuture${method.returnTypeArgs}(_\$future, context: ${storeTemplate.contextName});
   }""";
 }

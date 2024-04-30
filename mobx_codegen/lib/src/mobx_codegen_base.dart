@@ -34,6 +34,8 @@ class StoreGenerator extends Generator {
     for (final classElement in library.classes) {
       if (isMixinStoreClass(classElement)) {
         yield* _generateCodeForMixinStore(library, classElement, typeSystem);
+      } else if (isStateStoreClass(classElement)) {
+        yield* _generateCodeForStateStore(library, classElement, typeSystem);
       }
     }
   }
@@ -72,7 +74,36 @@ class StoreGenerator extends Generator {
     }
   }
 
+  Iterable<String> _generateCodeForStateStore(
+    LibraryReader library,
+    ClassElement baseClass,
+    TypeSystem typeSystem,
+  ) sync* {
+    final typeNameFinder = LibraryScopedNameFinder(library.element);
+    try {
+      yield _generateCodeFromStateStoreTemplate(
+          baseClass.name, baseClass, StateStoreTemplate(), typeNameFinder);
+      // ignore: avoid_catching_errors
+    } on StateError {
+      // ignore the case when no element is found
+    }
+  }
+
   String _generateCodeFromTemplate(
+    String publicTypeName,
+    ClassElement userStoreClass,
+    StoreTemplate template,
+    LibraryScopedNameFinder typeNameFinder,
+  ) {
+    final visitor = StoreClassVisitor(
+        publicTypeName, userStoreClass, template, typeNameFinder, options);
+    userStoreClass
+      ..accept(visitor)
+      ..visitChildren(visitor);
+    return visitor.source;
+  }
+
+  String _generateCodeFromStateStoreTemplate(
     String publicTypeName,
     ClassElement userStoreClass,
     StoreTemplate template,
