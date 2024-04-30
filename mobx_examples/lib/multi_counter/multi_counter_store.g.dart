@@ -9,7 +9,8 @@ part of 'multi_counter_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$SingleCounter on _SingleCounter, Store {
-  late final _$valueAtom = Atom(name: '_SingleCounter.value', context: context);
+  late final _$valueAtom =
+      Atom(name: '_SingleCounter.value', context: rcontext);
 
   @override
   int get value {
@@ -25,7 +26,7 @@ mixin _$SingleCounter on _SingleCounter, Store {
   }
 
   late final _$_SingleCounterActionController =
-      ActionController(name: '_SingleCounter', context: context);
+      ActionController(name: '_SingleCounter', context: rcontext);
 
   @override
   void reset() {
@@ -70,7 +71,7 @@ value: ${value}
 
 mixin _$MultiCounterStore on _MultiCounterStore, Store {
   late final _$_MultiCounterStoreActionController =
-      ActionController(name: '_MultiCounterStore', context: context);
+      ActionController(name: '_MultiCounterStore', context: rcontext);
 
   @override
   void addCounter() {

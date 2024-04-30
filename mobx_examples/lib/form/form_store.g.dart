@@ -23,7 +23,7 @@ mixin _$FormStore on _FormStore, Store {
           Computed<bool>(() => super.canLogin, name: '_FormStore.canLogin'))
       .value;
 
-  late final _$colorAtom = Atom(name: '_FormStore.color', context: context);
+  late final _$colorAtom = Atom(name: '_FormStore.color', context: rcontext);
 
   @override
   CustomColor get color {
@@ -38,7 +38,7 @@ mixin _$FormStore on _FormStore, Store {
     });
   }
 
-  late final _$nameAtom = Atom(name: '_FormStore.name', context: context);
+  late final _$nameAtom = Atom(name: '_FormStore.name', context: rcontext);
 
   @override
   String get name {
@@ -53,7 +53,7 @@ mixin _$FormStore on _FormStore, Store {
     });
   }
 
-  late final _$emailAtom = Atom(name: '_FormStore.email', context: context);
+  late final _$emailAtom = Atom(name: '_FormStore.email', context: rcontext);
 
   @override
   String get email {
@@ -69,7 +69,7 @@ mixin _$FormStore on _FormStore, Store {
   }
 
   late final _$passwordAtom =
-      Atom(name: '_FormStore.password', context: context);
+      Atom(name: '_FormStore.password', context: rcontext);
 
   @override
   String get password {
@@ -85,7 +85,7 @@ mixin _$FormStore on _FormStore, Store {
   }
 
   late final _$usernameCheckAtom =
-      Atom(name: '_FormStore.usernameCheck', context: context);
+      Atom(name: '_FormStore.usernameCheck', context: rcontext);
 
   @override
   ObservableFuture<bool> get usernameCheck {
@@ -101,7 +101,7 @@ mixin _$FormStore on _FormStore, Store {
   }
 
   late final _$validateUsernameAsyncAction =
-      AsyncAction('_FormStore.validateUsername', context: context);
+      AsyncAction('_FormStore.validateUsername', context: rcontext);
 
   @override
   Future<dynamic> validateUsername(String value) {
@@ -110,7 +110,7 @@ mixin _$FormStore on _FormStore, Store {
   }
 
   late final _$_FormStoreActionController =
-      ActionController(name: '_FormStore', context: context);
+      ActionController(name: '_FormStore', context: rcontext);
 
   @override
   void validatePassword(String value) {
@@ -158,7 +158,7 @@ mixin _$FormErrorState on _FormErrorState, Store {
           .value;
 
   late final _$usernameAtom =
-      Atom(name: '_FormErrorState.username', context: context);
+      Atom(name: '_FormErrorState.username', context: rcontext);
 
   @override
   String? get username {
@@ -174,7 +174,7 @@ mixin _$FormErrorState on _FormErrorState, Store {
   }
 
   late final _$emailAtom =
-      Atom(name: '_FormErrorState.email', context: context);
+      Atom(name: '_FormErrorState.email', context: rcontext);
 
   @override
   String? get email {
@@ -190,7 +190,7 @@ mixin _$FormErrorState on _FormErrorState, Store {
   }
 
   late final _$passwordAtom =
-      Atom(name: '_FormErrorState.password', context: context);
+      Atom(name: '_FormErrorState.password', context: rcontext);
 
   @override
   String? get password {

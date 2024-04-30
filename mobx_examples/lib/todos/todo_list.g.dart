@@ -87,7 +87,7 @@ mixin _$TodoList on _TodoList, Store {
               name: '_TodoList.canMarkAllCompleted'))
       .value;
 
-  late final _$todosAtom = Atom(name: '_TodoList.todos', context: context);
+  late final _$todosAtom = Atom(name: '_TodoList.todos', context: rcontext);
 
   @override
   ObservableList<Todo> get todos {
@@ -102,7 +102,7 @@ mixin _$TodoList on _TodoList, Store {
     });
   }
 
-  late final _$filterAtom = Atom(name: '_TodoList.filter', context: context);
+  late final _$filterAtom = Atom(name: '_TodoList.filter', context: rcontext);
 
   @override
   VisibilityFilter get filter {
@@ -118,7 +118,7 @@ mixin _$TodoList on _TodoList, Store {
   }
 
   late final _$_TodoListActionController =
-      ActionController(name: '_TodoList', context: context);
+      ActionController(name: '_TodoList', context: rcontext);
 
   @override
   void addTodo(String description) {

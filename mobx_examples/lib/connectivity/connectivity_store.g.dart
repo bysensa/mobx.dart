@@ -10,7 +10,7 @@ part of 'connectivity_store.dart';
 
 mixin _$ConnectivityStore on _ConnectivityStore, Store {
   late final _$connectivityStreamAtom =
-      Atom(name: '_ConnectivityStore.connectivityStream', context: context);
+      Atom(name: '_ConnectivityStore.connectivityStream', context: rcontext);
 
   @override
   ObservableStream<ConnectivityResult> get connectivityStream {

@@ -170,7 +170,8 @@ abstract class __ExampleStore with Store {
 // This is what typically a mobx codegen will generate.
 mixin _$_ExampleStore on __ExampleStore, Store {
   // ignore: non_constant_identifier_names
-  late final _$valueAtom = Atom(name: '__ExampleStore.value', context: context);
+  late final _$valueAtom =
+      Atom(name: '__ExampleStore.value', context: rcontext);
 
   @override
   String get value {
@@ -187,7 +188,7 @@ mixin _$_ExampleStore on __ExampleStore, Store {
 
   // ignore: non_constant_identifier_names
   late final _$value2Atom =
-      Atom(name: '__ExampleStore.value2', context: context);
+      Atom(name: '__ExampleStore.value2', context: rcontext);
 
   @override
   String get value2 {
@@ -204,7 +205,7 @@ mixin _$_ExampleStore on __ExampleStore, Store {
 
   // ignore: non_constant_identifier_names
   late final _$value3Atom =
-      Atom(name: '__ExampleStore.value3', context: context);
+      Atom(name: '__ExampleStore.value3', context: rcontext);
 
   @override
   String get value3 {
@@ -220,7 +221,7 @@ mixin _$_ExampleStore on __ExampleStore, Store {
   }
 
   // ignore: non_constant_identifier_names
-  late final _$listAtom = Atom(name: '__ExampleStore.list', context: context);
+  late final _$listAtom = Atom(name: '__ExampleStore.list', context: rcontext);
 
   @override
   List<String> get list {
@@ -236,7 +237,7 @@ mixin _$_ExampleStore on __ExampleStore, Store {
   }
 
   // ignore: non_constant_identifier_names
-  late final _$mapAtom = Atom(name: '__ExampleStore.map', context: context);
+  late final _$mapAtom = Atom(name: '__ExampleStore.map', context: rcontext);
 
   @override
   Map<String, int> get map {
@@ -253,7 +254,7 @@ mixin _$_ExampleStore on __ExampleStore, Store {
 
   // ignore: non_constant_identifier_names
   late final _$iterableAtom =
-      Atom(name: '__ExampleStore.iterable', context: context);
+      Atom(name: '__ExampleStore.iterable', context: rcontext);
 
   @override
   List<int> get iterable {

@@ -10,7 +10,7 @@ part of 'news_store.dart';
 
 mixin _$HackerNewsStore on _HackerNewsStore, Store {
   late final _$latestItemsFutureAtom =
-      Atom(name: '_HackerNewsStore.latestItemsFuture', context: context);
+      Atom(name: '_HackerNewsStore.latestItemsFuture', context: rcontext);
 
   @override
   ObservableFuture<List<FeedItem>>? get latestItemsFuture {
@@ -26,7 +26,7 @@ mixin _$HackerNewsStore on _HackerNewsStore, Store {
   }
 
   late final _$topItemsFutureAtom =
-      Atom(name: '_HackerNewsStore.topItemsFuture', context: context);
+      Atom(name: '_HackerNewsStore.topItemsFuture', context: rcontext);
 
   @override
   ObservableFuture<List<FeedItem>>? get topItemsFuture {
@@ -42,7 +42,7 @@ mixin _$HackerNewsStore on _HackerNewsStore, Store {
   }
 
   late final _$_HackerNewsStoreActionController =
-      ActionController(name: '_HackerNewsStore', context: context);
+      ActionController(name: '_HackerNewsStore', context: rcontext);
 
   @override
   Future<dynamic> fetchLatest() {

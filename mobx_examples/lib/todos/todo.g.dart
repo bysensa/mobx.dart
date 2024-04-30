@@ -23,7 +23,7 @@ Map<String, dynamic> _$TodoToJson(Todo instance) => <String, dynamic>{
 
 mixin _$Todo on _Todo, Store {
   late final _$descriptionAtom =
-      Atom(name: '_Todo.description', context: context);
+      Atom(name: '_Todo.description', context: rcontext);
 
   @override
   String get description {
@@ -38,7 +38,7 @@ mixin _$Todo on _Todo, Store {
     });
   }
 
-  late final _$doneAtom = Atom(name: '_Todo.done', context: context);
+  late final _$doneAtom = Atom(name: '_Todo.done', context: rcontext);
 
   @override
   bool get done {

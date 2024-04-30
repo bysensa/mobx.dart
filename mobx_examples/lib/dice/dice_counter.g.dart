@@ -16,7 +16,7 @@ mixin _$DiceCounter on _DiceCounter, Store {
           Computed<int>(() => super.total, name: '_DiceCounter.total'))
       .value;
 
-  late final _$leftAtom = Atom(name: '_DiceCounter.left', context: context);
+  late final _$leftAtom = Atom(name: '_DiceCounter.left', context: rcontext);
 
   @override
   int get left {
@@ -31,7 +31,7 @@ mixin _$DiceCounter on _DiceCounter, Store {
     });
   }
 
-  late final _$rightAtom = Atom(name: '_DiceCounter.right', context: context);
+  late final _$rightAtom = Atom(name: '_DiceCounter.right', context: rcontext);
 
   @override
   int get right {
@@ -47,7 +47,7 @@ mixin _$DiceCounter on _DiceCounter, Store {
   }
 
   late final _$_DiceCounterActionController =
-      ActionController(name: '_DiceCounter', context: context);
+      ActionController(name: '_DiceCounter', context: rcontext);
 
   @override
   void roll() {
