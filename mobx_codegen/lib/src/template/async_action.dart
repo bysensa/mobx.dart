@@ -34,7 +34,7 @@ class AsyncActionTemplate with AnnotationsGenerator {
 
   @override
   String toString() => """
-  late final $_actionField = AsyncAction('${storeTemplate.parentTypeName}.${method.name}', context: rcontext);
+  late final $_actionField = AsyncAction('${storeTemplate.parentTypeName}.${method.name}', context: context);
 
   $annotations
   $_futureType${method.returnTypeArgs} ${method.name}${method.typeParams}(${method.params}) {

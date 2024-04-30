@@ -80,7 +80,7 @@ class ObservableTemplate {
 
   @override
   String toString() => """
-  late final $atomName = Atom(name: '${storeTemplate.parentTypeName}.$name', context: rcontext);
+  late final $atomName = Atom(name: '${storeTemplate.parentTypeName}.$name', context: context);
 
 ${_buildGetters()}
 

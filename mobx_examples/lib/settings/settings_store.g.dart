@@ -10,7 +10,7 @@ part of 'settings_store.dart';
 
 mixin _$SettingsStore on _SettingsStore, Store {
   late final _$useDarkModeAtom =
-      Atom(name: '_SettingsStore.useDarkMode', context: rcontext);
+      Atom(name: '_SettingsStore.useDarkMode', context: context);
 
   @override
   bool get useDarkMode {
@@ -26,7 +26,7 @@ mixin _$SettingsStore on _SettingsStore, Store {
   }
 
   late final _$setDarkModeAsyncAction =
-      AsyncAction('_SettingsStore.setDarkMode', context: rcontext);
+      AsyncAction('_SettingsStore.setDarkMode', context: context);
 
   @override
   Future<void> setDarkMode({required bool value}) {

@@ -18,7 +18,7 @@ mixin _$GithubStore on _GithubStore, Store {
           .value;
 
   late final _$fetchReposFutureAtom =
-      Atom(name: '_GithubStore.fetchReposFuture', context: rcontext);
+      Atom(name: '_GithubStore.fetchReposFuture', context: context);
 
   @override
   ObservableFuture<List<Repository>> get fetchReposFuture {
@@ -33,7 +33,7 @@ mixin _$GithubStore on _GithubStore, Store {
     });
   }
 
-  late final _$userAtom = Atom(name: '_GithubStore.user', context: rcontext);
+  late final _$userAtom = Atom(name: '_GithubStore.user', context: context);
 
   @override
   String get user {
@@ -49,7 +49,7 @@ mixin _$GithubStore on _GithubStore, Store {
   }
 
   late final _$fetchReposAsyncAction =
-      AsyncAction('_GithubStore.fetchRepos', context: rcontext);
+      AsyncAction('_GithubStore.fetchRepos', context: context);
 
   @override
   Future<List<Repository>> fetchRepos() {
@@ -57,7 +57,7 @@ mixin _$GithubStore on _GithubStore, Store {
   }
 
   late final _$_GithubStoreActionController =
-      ActionController(name: '_GithubStore', context: rcontext);
+      ActionController(name: '_GithubStore', context: context);
 
   @override
   void setUser(String text) {

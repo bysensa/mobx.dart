@@ -35,15 +35,14 @@ abstract class StoreTemplate {
   final Rows<ObservableStreamTemplate> observableStreams = Rows();
   final List<String> toStringList = [];
 
-  bool get generateToString => false;
-  set generateToString(bool value) {}
+  bool generateToString = false;
   String? _actionControllerName;
   String get actionControllerName =>
       _actionControllerName ??= '_\$${parentTypeName}ActionController';
 
   String get actionControllerField => actions.isEmpty
       ? ''
-      : "late final $actionControllerName = ActionController(name: '$parentTypeName', context: rcontext);";
+      : "late final $actionControllerName = ActionController(name: '$parentTypeName', context: context);";
 
   String get toStringMethod {
     if (!generateToString) {
