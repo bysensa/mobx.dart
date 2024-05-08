@@ -11,18 +11,6 @@ abstract class MobxContextAction<T extends Intent> = Action<T>
 /// Used for [MobxAction] and [MobxContextAction] classes to support reactivity for [isActionEnabled] and [isConsumesKey] fields
 /// to perform components rebuilds when these fields are changed in reaction of MobX store changes
 mixin _MobxActionMixin<T extends Intent> on Action<T> {
-  /// Disposer for isActionEnabled reaction
-  ///
-  /// Instance is created when first listener is added
-  /// After last listener is removed, reaction is disposed
-  Dispose? _isEnabledEffectDispose;
-
-  /// Disposer for isConsumesKey reaction
-  ///
-  /// Instance is created when first listener is added
-  /// After last listener is removed, reaction is disposed
-  Dispose? _isConsumesKeyEffectDispose;
-
   /// Number of listeners for this action
   ///
   /// Value is incremented when listener is added and decremented when listener is removed
@@ -59,11 +47,22 @@ mixin _MobxActionMixin<T extends Intent> on Action<T> {
   }
 
   //<editor-fold defaultstate="collapsed" desc="IsActionEnabled implementation">
+  final _isEnabledAtom = Atom();
+
+  /// Disposer for isActionEnabled reaction
+  ///
+  /// Instance is created when first listener is added
+  /// After last listener is removed, reaction is disposed
+  Dispose? _isEnabledEffectDispose;
+
   /// Whether this action is enabled or not
   ///
   /// Provide value from [isActionEnabledPredicate] evaluation result
   @override
-  bool get isActionEnabled => _isActionEnabled;
+  bool get isActionEnabled {
+    _isEnabledAtom.reportRead();
+    return _isActionEnabled;
+  }
 
   /// Internal variable for [isActionEnabled] value
   ///
@@ -84,7 +83,13 @@ mixin _MobxActionMixin<T extends Intent> on Action<T> {
       _isEnabledEffectDispose = reaction(
         (_) => isActionEnabledPredicate(),
         (value) {
-          _isActionEnabled = value;
+          _isEnabledAtom.reportWrite(
+            value,
+            _isActionEnabled,
+            () {
+              _isActionEnabled = value;
+            },
+          );
           notifyActionListeners();
         },
         fireImmediately: true,
@@ -104,13 +109,24 @@ mixin _MobxActionMixin<T extends Intent> on Action<T> {
   //</editor-fold>
 
   //<editor-fold defaultstate="collapsed" desc="isConsumesKey implementation">
+  final Atom _isConsumesKeyAtom = Atom();
+
+  /// Disposer for isConsumesKey reaction
+  ///
+  /// Instance is created when first listener is added
+  /// After last listener is removed, reaction is disposed
+  Dispose? _isConsumesKeyEffectDispose;
+
   /// Whether this action consumes key or not
   ///
   /// Provide value from [isConsumesKeyPredicate] evaluation result
   bool _isConsumesKey = true;
 
   /// Internal variable for [isConsumesKey] value
-  bool get isConsumesKey => _isConsumesKey;
+  bool get isConsumesKey {
+    _isConsumesKeyAtom.reportRead();
+    return _isConsumesKey;
+  }
 
   /// Predicate for [isConsumesKey] value
   ///
@@ -125,7 +141,13 @@ mixin _MobxActionMixin<T extends Intent> on Action<T> {
       _isConsumesKeyEffectDispose = reaction(
         (_) => isConsumesKeyPredicate(),
         (value) {
-          _isConsumesKey = value;
+          _isConsumesKeyAtom.reportWrite(
+            value,
+            _isConsumesKey,
+            () {
+              _isConsumesKey = value;
+            },
+          );
           notifyActionListeners();
         },
         fireImmediately: true,
