@@ -87,3 +87,13 @@ class MakeAction {
 /// Declares a method as an action. See the `Action` class for full
 /// documentation.
 const MakeAction action = MakeAction._();
+
+/// Internal class only used for code-generation with `mobx_codegen`.
+class MakeProvide {
+  const MakeProvide({this.listen = false});
+
+  final bool listen;
+}
+
+const MakeProvide read = MakeProvide();
+const MakeProvide watch = MakeProvide(listen: true);

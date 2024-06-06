@@ -3,7 +3,7 @@ import 'package:mobx/mobx.dart' hide Action;
 
 abstract class MobxAction<T extends Intent> = Action<T>
     with _MobxActionMixin<T>;
-abstract class MobxContextAction<T extends Intent> = Action<T>
+abstract class MobxContextAction<T extends Intent> = ContextAction<T>
     with _MobxActionMixin<T>;
 
 /// Mixin for [Action] that supports MobX reactivity
@@ -17,7 +17,7 @@ mixin _MobxActionMixin<T extends Intent> on Action<T> {
   int _listenersCount = 0;
 
   @override
-  bool isEnabled(T intent) => isActionEnabled;
+  bool isEnabled(T intent, [BuildContext? context]) => isActionEnabled;
 
   @override
   bool consumesKey(T intent) => isConsumesKey;

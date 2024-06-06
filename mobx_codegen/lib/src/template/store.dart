@@ -1,11 +1,15 @@
+import 'package:analyzer/dart/element/element.dart';
 import 'package:mobx_codegen/src/template/action.dart';
 import 'package:mobx_codegen/src/template/async_action.dart';
 import 'package:mobx_codegen/src/template/comma_list.dart';
 import 'package:mobx_codegen/src/template/computed.dart';
+import 'package:mobx_codegen/src/template/did_change_dependencies.dart';
+import 'package:mobx_codegen/src/template/init_state.dart';
 import 'package:mobx_codegen/src/template/observable.dart';
 import 'package:mobx_codegen/src/template/observable_future.dart';
 import 'package:mobx_codegen/src/template/observable_stream.dart';
 import 'package:mobx_codegen/src/template/params.dart';
+import 'package:mobx_codegen/src/template/provide.dart';
 import 'package:mobx_codegen/src/template/rows.dart';
 
 class MixinStoreTemplate extends StoreTemplate {
@@ -31,10 +35,22 @@ class StateStoreTemplate extends StoreTemplate {
   bool get generateToString => false;
 
   @override
-  String toString() => '''
+  String get storeBody {
+    return '''
+    $provides
+    $initState
+    $didChangeDependencies
+    ${super.storeBody}
+    ''';
+  }
+
+  @override
+  String toString() {
+    return '''
   abstract class $typeName$typeParams extends $parentTypeName$typeArgs with StateStore {
     $storeBody
   }''';
+  }
 }
 
 abstract class StoreTemplate {
@@ -46,7 +62,11 @@ abstract class StoreTemplate {
   late String publicTypeName;
   late String parentTypeName;
 
+  final InitStateTemplate initState = InitStateTemplate();
+  final DidChangeDependenciesTemplate didChangeDependencies =
+      DidChangeDependenciesTemplate();
   final Rows<ObservableTemplate> observables = Rows();
+  final Rows<ProvideTemplate> provides = Rows();
   final Rows<ComputedTemplate> computeds = Rows();
   final Rows<ActionTemplate> actions = Rows();
   final Rows<AsyncActionTemplate> asyncActions = Rows();

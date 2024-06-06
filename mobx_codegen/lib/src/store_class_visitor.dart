@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:mobx/mobx.dart';
 // ignore: implementation_imports
 import 'package:mobx/src/api/annotations.dart'
-    show ComputedMethod, MakeAction, MakeObservable, StoreConfig;
+    show ComputedMethod, MakeAction, MakeObservable, MakeProvide, StoreConfig;
 import 'package:mobx_codegen/src/errors.dart';
 import 'package:mobx_codegen/src/template/action.dart';
 import 'package:mobx_codegen/src/template/async_action.dart';
@@ -14,6 +14,7 @@ import 'package:mobx_codegen/src/template/method_override.dart';
 import 'package:mobx_codegen/src/template/observable.dart';
 import 'package:mobx_codegen/src/template/observable_future.dart';
 import 'package:mobx_codegen/src/template/observable_stream.dart';
+import 'package:mobx_codegen/src/template/provide.dart';
 import 'package:mobx_codegen/src/template/store.dart';
 import 'package:mobx_codegen/src/template/util.dart';
 import 'package:mobx_codegen/src/type_names.dart';
@@ -37,6 +38,7 @@ class StoreClassVisitor extends SimpleElementVisitor {
   }
 
   final _observableChecker = const TypeChecker.fromRuntime(MakeObservable);
+  final _provideChecker = const TypeChecker.fromRuntime(MakeProvide);
 
   final _computedChecker = const TypeChecker.fromRuntime(ComputedMethod);
 
@@ -86,6 +88,25 @@ class StoreClassVisitor extends SimpleElementVisitor {
       return;
     }
 
+    if (_provideChecker.hasAnnotationOfExact(element)) {
+      final template = ProvideTemplate(
+        storeTemplate: _storeTemplate,
+        atomName: '_\$${element.name}Atom',
+        type: typeNameFinder.findVariableTypeName(element),
+        name: element.name,
+        isPrivate: element.isPrivate,
+        // isReadOnly: _isObservableReadOnly(element),
+        isLate: element.isLate,
+        isListen: _isProvideListen(element),
+      );
+
+      _storeTemplate.provides.add(template);
+      _storeTemplate.initState.add(template);
+      if (template.isListen) {
+        _storeTemplate.didChangeDependencies.add(template);
+      }
+    }
+
     if (!_observableChecker.hasAnnotationOfExact(element)) {
       return;
     }
@@ -113,6 +134,13 @@ class StoreClassVisitor extends SimpleElementVisitor {
       _observableChecker
           .firstAnnotationOfExact(element)
           ?.getField('readOnly')
+          ?.toBoolValue() ??
+      false;
+
+  bool _isProvideListen(FieldElement element) =>
+      _provideChecker
+          .firstAnnotationOfExact(element)
+          ?.getField('listen')
           ?.toBoolValue() ??
       false;
 

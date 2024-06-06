@@ -35,6 +35,8 @@ export 'package:mobx/src/api/annotations.dart'
         computed,
         readonly,
         observable,
+        read,
+        watch,
         StoreConfig,
         MakeObservable,
         alwaysNotify,
