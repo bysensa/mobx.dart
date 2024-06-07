@@ -35,8 +35,7 @@ class ProvideTemplate {
   }
 
   String _buildGetters() {
-    if (isReadOnly) {
-      return '''
+    return '''
   $type get $getterName {
     $atomName.reportRead();
     return super.$name;
@@ -44,13 +43,6 @@ class ProvideTemplate {
 
   @override
   $type get $name => $getterName;''';
-    }
-    return '''
-  @override
-  $type get $getterName {
-    $atomName.reportRead();
-    return super.$name;
-  }''';
   }
 
   String _buildSetters() {
