@@ -1,16 +1,15 @@
 import 'package:flutter/widgets.dart';
 import 'package:mobx/mobx.dart' hide Action;
 
-abstract class MobxAction<T extends Intent> = Action<T>
-    with _MobxActionMixin<T>;
+abstract class MobxAction<T extends Intent> = Action<T> with MobxActionMixin<T>;
 abstract class MobxContextAction<T extends Intent> = ContextAction<T>
-    with _MobxActionMixin<T>;
+    with MobxActionMixin<T>;
 
 /// Mixin for [Action] that supports MobX reactivity
 ///
 /// Used for [MobxAction] and [MobxContextAction] classes to support reactivity for [isActionEnabled] and [isConsumesKey] fields
 /// to perform components rebuilds when these fields are changed in reaction of MobX store changes
-mixin _MobxActionMixin<T extends Intent> on Action<T> {
+mixin MobxActionMixin<T extends Intent> on Action<T> {
   /// Number of listeners for this action
   ///
   /// Value is incremented when listener is added and decremented when listener is removed
